@@ -1,4 +1,4 @@
-# HTML5 Tibia Client
+# Forby HTML5 Open Tibia Client
 
 # Example
 
