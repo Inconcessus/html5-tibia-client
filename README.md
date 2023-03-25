@@ -1,10 +1,16 @@
 # HTML5 Tibia Client
 
+# Example
+
+Visit https://inconcessus.nl for an example server & client.
+
+# Deploying
+
 The files in this repository need to be exposed through a webserver. An example python script is included that will host the current static directory on `127.0.0.1:8000`. It can be launched:
 
     python client-server.py
 
-Then visit 127.0.0.1:8000 in your browser to visit the client. Note that the default protocol is HTTP.
+Then visit `127.0.0.1:8000` in your browser to visit the client. Note that the default protocol is HTTP.
 
 # Options
 
