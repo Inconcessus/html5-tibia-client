@@ -2,7 +2,7 @@
 
 # Example
 
-Visit https://inconcessus.nl for an example server & client.
+Visit https://inconcessus.nl for an example server & client. The server software can be found [here](https://github.com/Inconcessus/html5-tibia-engine).
 
 # Deploying
 
