@@ -1,0 +1,18 @@
+.move-item-wrapper {
+  display: flex;
+}
+
+.move-item-wrapper-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.move-item-wrapper-inner-row {
+  display: flex;
+}
+
+.move-item-wrapper-inner-row button {
+  flex: 1 1 auto;
+  margin: 2px;
+}

@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html>
+
+  <meta charset="utf-8"/>
+
+  <!-- Metadata -->
+  <meta name="description" content="Forby HTML5 Open Tibia Client">
+  <meta name="keywords" content="HTML5, JavaScript, NodeJS, Open Tibia, Client, Forby">
+  <meta name="author" content="Forby">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Forby HTML5 Open Tibia Client</title>
+
+  <!-- Style Icon -->
+  <link rel="shortcut icon" type="image/png" href="./png/forby.png"/>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="./css/hotbar.css">
+  <link rel="stylesheet" type="text/css" href="./css/screen-element.css">
+  <link rel="stylesheet" type="text/css" href="./css/canvas.css">
+  <link rel="stylesheet" type="text/css" href="./css/chatbox.css">
+  <link rel="stylesheet" type="text/css" href="./css/login.css">
+  <link rel="stylesheet" type="text/css" href="./css/new.css">
+  <link rel="stylesheet" type="text/css" href="./css/equipment.css">
+  <link rel="stylesheet" type="text/css" href="./css/window.css">
+  <link rel="stylesheet" type="text/css" href="./css/minimap.css">
+  <link rel="stylesheet" type="text/css" href="./css/slot.css">
+  <link rel="stylesheet" type="text/css" href="./css/skillwindow.css">
+  <link rel="stylesheet" type="text/css" href="./css/slider.css">
+  <link rel="stylesheet" type="text/css" href="./css/modal.css">
+  <link rel="stylesheet" type="text/css" href="./css/move-item-modal.css">
+  <link rel="stylesheet" type="text/css" href="./css/change-outfit-modal.css">
+  <link rel="stylesheet" type="text/css" href="./css/context-menu.css">
+  <link rel="stylesheet" type="text/css" href="./css/achievement.css">
+
+  <!-- Ambient Music -->
+  <audio id="rain" src="sounds/rain.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="field" src="sounds/field.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="cave" src="sounds/cave.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="forest" src="sounds/forest.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="wind" src="sounds/wind.ogg" preload="auto" type="audio/ogg"></audio>
+  
+  <!-- Sound bits -->
+  <audio id="thunder-1" src="sounds/thunder1.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="thunder-2" src="sounds/thunder2.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="thunder-3" src="sounds/thunder3.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="thunder-4" src="sounds/thunder4.ogg" preload="auto" type="audio/ogg"></audio>
+  
+  <!-- Sound bits -->
+  <audio id="grass-1" src="sounds/grass1.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="grass-2" src="sounds/grass2.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="grass-3" src="sounds/grass3.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="grass-4" src="sounds/grass4.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="grass-5" src="sounds/grass5.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="grass-6" src="sounds/grass6.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="grass-7" src="sounds/grass7.ogg" preload="auto" type="audio/ogg"></audio>
+  <audio id="grass-8" src="sounds/grass8.ogg" preload="auto" type="audio/ogg"></audio>
+
+  <audio id="wood-2" src="sounds/wood2.ogg" preload="auto" type="audio/ogg"></audio>
+
+  <body>
+
+    <!-- Hidden file selector for loading assets -->
+    <input type="file" id="asset-selector" style="display: none" multiple>
+    <input id="load-save" type="file" style="display: none">
+    
+    <!-- Battle Window -->
+    <div id="battle-window-target" class="battle-window-target-wrapper">
+      <div class="battle-window-target-stats">
+        <div class="battle-window-target-title"></div>
+        <div class="battle-window-bar-wrapper">
+          <span style="color: rgb(0, 255, 0)">???</span>
+          <div class="battle-window-target-stats-bar health"></div>
+        </div>
+        <div class="battle-window-bar-wrapper">
+          <div class="battle-window-target-stats-bar mana"></div>
+          <span style="color: rgb(0, 0, 255)">???</span>
+        </div>
+      </div>
+      <div class="battle-window-target-canvas">
+        <canvas id="battle-window-target-canvas"></canvas>
+      </div>
+    </div>
+
+   <div id="spellbook-wrapper-prototype" class="spellbook-wrapper">
+     <canvas></canvas>
+     <span></span>
+   </div>
+
+    <!-- The Context Menu's -->
+    <div class="contextmenu modal" id="screen-menu">
+      <div class="menu-header">Menu</div>
+      <button action="look">Look</button>
+      <br><button action="use">Use</button>
+    </div>
+    
+    <!-- Menu for chat header -->
+    <div class="contextmenu modal" id="chat-header-menu">
+      <div class="menu-header">Menu</div>
+      <button action="close">Close</button>
+    </div>
+    
+    <!-- Menu for chat entry -->
+    <div class="contextmenu modal" id="hotbar-menu">
+      <div class="menu-header">Menu</div>
+      <button action="add">Add</button>
+      <button action="remove">Remove</button>
+    </div>
+    
+    <!-- Menu for chat entry -->
+    <div class="contextmenu modal" id="chat-entry-menu">
+      <div class="menu-header">Menu</div>
+      <button action="whisper">Whisper</button>
+    </div>
+    
+    <!-- Menu for chat entry -->
+    <div class="contextmenu modal" id="chat-body-menu">
+      <div class="menu-header">Menu</div>
+      <button action="clear">Clear Chat</button>
+    </div>
+    
+    <!-- Menu for friend list -->
+    <div class="contextmenu modal" id="friend-list-menu">
+      <div class="menu-header">Menu</div>
+      <button action="remove">Remove Friend</button>
+      <br>
+      <button action="note">Set Note</button>
+    </div>
+    
+    <!-- Menu for friend list -->
+    <div class="contextmenu modal" id="friend-window-menu">
+      <div class="menu-header">Menu</div>
+      <button action="add">Add Friend</button>
+      <br><button action="sort-normal">Sort Normal</button>
+      <br><button action="sort-reversed">Sort Reversed</button>
+      <br><button action="hide-offline">Hide Offline</button>
+    </div>
+
+    <!-- The Slot Prototype -->
+    <div style="display: none;">
+      <div id="slot-prototype" class="slot">
+        <canvas width="32" height="32"></canvas>
+        <span class="count">
+      </div>
+    </div>
+   
+    <!-- The Floating Element Prototype -->
+    <div id="floating-element-prototype" class="prototype text-window">
+      <span></span>
+    </div>
+
+    <!-- The Message Element Prototype -->
+    <div id="message-element-prototype" class="prototype text-window text-bubble">
+      <span></span>
+      <br>
+      <span></span>
+    </div>
+
+    <!-- The Character Element Prototype -->
+    <div id="character-element-prototype" class="prototype text-window">
+      <span></span>
+      <div class="character-element-bar">
+        <div class="value-health"></div>
+      </div> 
+      <div class="character-element-bar">
+        <div class="value-mana"></div>
+      </div>
+    </div>
+
+    <!-- The Container Prototype -->
+    <div id="container-prototype" class="prototype window">
+      <div class="header">
+        <button class="symbol-button small" action="close" title="Close">✕</button>
+        <button class="symbol-button small" action="minimize" title="Minimize">&#x2212</button>
+        <span class="title"></span>
+      </div>
+      <div class="body"></div>
+      <div class="footer"></div>
+    </div>
+    
+    <!-- Friend List -->
+    <div id="friend-window" class="window">
+      <div class="header">
+        <button class="symbol-button small" action="close" title="Close">✕</button>
+        <button class="symbol-button small" action="minimize" title="Minimize">&#x2212</button>
+        <span class="title">Friend List</span>
+      </div>
+      <div class="body"></div>
+      <div class="footer"></div>
+    </div>
+    
+    <!-- Skill Window -->
+    <div id="battle-window" class="window">
+      <div class="header">
+        <button class="symbol-button small" action="close" title="Close">✕</button>
+        <button class="symbol-button small" action="minimize" title="Minimize">&#x2212</button>
+        <span class="title">Battle</span>
+      </div>
+      <div class="body"></div>
+      <div class="footer"></div>
+    </div>
+    
+    <!-- Skill Window -->
+    <div id="skill-window" class="window">
+      <div class="header">
+        <button class="symbol-button small" action="close" title="Close">✕</button>
+        <button class="symbol-button small" action="minimize" title="Minimize">&#x2212</button>
+        <span class="title">Character Skills</span>
+      </div>
+      <div class="body">
+
+        <div class="outer-skill-wrapper" skill="level">
+          <div class="skill-wrapper">
+            <span>Level</span>
+            <span class="skill">255</span>
+          </div>
+        </div>
+
+        <div class="outer-skill-wrapper" skill="experience">
+          <div class="bar-wrapper">
+            <div class="skill-wrapper">
+              <span>Experience</span>
+              <span class="skill">25,520</span>
+            </div>
+            <div class="bar">
+              <div class="value"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="outer-skill-wrapper" skill="attack">
+          <div class="skill-wrapper">
+            <span>Attack</span>
+              <span class="skill"></span>
+          </div>
+        </div>
+
+        <div class="outer-skill-wrapper" skill="armor">
+          <div class="skill-wrapper">
+            <span>Armor</span>
+              <span class="skill"></span>
+          </div>
+        </div>
+
+        <div class="outer-skill-wrapper" skill="speed">
+          <div class="skill-wrapper">
+            <span>Speed</span>
+              <span class="skill"></span>
+          </div>
+        </div>
+
+      </div>
+      <div class="footer"></div>
+    </div>
+    
+    <!-- Wrapper for the login screen -->
+    <div id="login-wrapper">
+      <div id="login-inner">
+
+        <div class="modal-wrapper">
+
+          <!-- Login Modal for Generic Text -->
+          <div id="floater-connecting" class="modal">
+            <div class="modal-header">Information</div>
+            <div class="modal-body">
+              <div style="text-align: center;"><span id="serve-feedback"></span></div>
+            </div>
+          </div>
+
+          <!-- Login Modal for Connection Settings -->
+          <div id="settings-box" class="modal">
+            <div class="modal-header">Connection Settings</div>
+            <div class="modal-body">
+              <p> Login Server Address:
+              <br><input style="text-align: center;" id="host" placeholder="login.inconcessus.nl">
+              <hr>
+              <button id="clear-database" onclick="gameClient.database.clear()">Reset Client</button>
+              <div class="modal-footer">
+                <button action="confirm">Close</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Login Modal for Information -->
+          <div id="information-modal" class="modal">
+            <div class="modal-header">Information</div>
+            <div class="modal-body" style="text-align: center; max-width: 500px;">
+              <p> Tibia Game Client and Game Server written in NodeJS/JavaScript.
+              <hr>
+              <img src="./png/forby.png" style="width: 68px; heigiht: 68px;"></img>
+              <hr>
+              Load the required <b>Tibia.spr</b> and <b>Tibia.dat</b> files by clicking Load Assets. The asset versions must match the server version and both client/server support versions 7.4 and 10.98 but nothing in between.
+              <p> Copyright by Forby, 2019 - 2022
+              <hr>
+              <div class="modal-footer">
+                <button action="confirm">Close</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Login Modal for Enter World -->
+          <div id="floater-enter" class="modal">
+            <div class="modal-header">Account Information</div>
+            <div class="modal-body">
+              <form>
+              <p>Username:
+              <br><input class="password-input" name='username' id="user-username" type="text" placeholder="Account Name">
+              <p>Password:
+              <br><input class="password-input" name='password' id="user-password" type="password" placeholder="Account Password">
+              </form>
+              <hr>
+              <div class="modal-footer">
+                <button id="enter-game" disabled>Enter Gameworld</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Login Modal for Enter World -->
+          <div id="floater-create" class="modal">
+            <div class="modal-header">Create Account</div>
+            <div class="modal-body">
+              <p><input class="password-input" id="create-username" type="password" placeholder="Account Number">
+              <p><input class="password-input" id="create-password" type="password" placeholder="Account Password">
+              <p><input class="password-input" id="create-name" placeholder="Character Name">
+              <p><select class="password-input" id="create-sex">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              <hr>
+              <div class="modal-footer">
+                <button action="confirm" id="create-account-close">Create Account</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Information at the top -->
+        <div class="login-version">
+          Client Version: <span id="client-version"></span>
+          <br>Sprites: <span id="sprites-loaded" style="color: red;">Missing</span>
+          <br>Objects: <span id="data-loaded" style="color: red;">Missing</span>
+        </div>
+
+        <!-- Main Background Image-->
+        <img src="./png/background.png">
+
+        <!-- The Setting buttons at the bottom -->
+        <div class="login-settings">
+          <button id="login-info">Enter Game</button>
+          <button id="create-account">Create Account</button>
+          <button id="load-assets">Load Assets</button>
+          <button id="settings">Options</button>
+          <button id="information">Information</button>
+        </div>
+
+      </div>
+
+    </div>
+    
+    <!-- The Game Interface -->
+    <div id="game-wrapper">
+    
+      <!-- Left Column -->
+      <div class="oogwrap">
+        <div class="column"></div>
+      </div>
+
+      <!-- Main body for the screen etc.. -->   
+      <div class="main">
+
+        <div class="middle"></div>
+
+        <div class="upper">
+
+          <div id="canvas-id" class="canvas-wrapper">
+    
+          <!-- Modals for the game screen -->
+          <div class="modal-wrapper">
+ 
+            <!-- Open Chat Modal -->
+            <div id="map-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">World Map</div>
+              <div class="modal-body">
+                <div class="map-modal-wrapper">
+                  <span>Hey</span>
+                  <div class="vline"></div>
+                  <div class="hline"></div>
+                  <canvas id="map-modal-canvas" style="background-color: black;"></canvas>
+                </div>
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Close</button>
+                </div>
+              </div>
+            </div>
+   
+            <!-- Open Chat Modal -->
+            <div id="chat-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Chat Options</div>
+              <div class="modal-body">
+                Select a channel:
+                <br>
+                <select id="channel-select" class="channel-select" size="6">
+                  <option channelType="global" channelId="1">World</option>
+                  <option channelType="global" channelId="2">Trade</option>
+                  <option channelType="global" channelId="3">Help</option>
+                  <option channelType="local" channelId="Console">Console</option>
+                </select>
+                <hr>
+                Open a private channel:
+                <br>
+                <input id="open-private-channel-input" type="text" onkeypress="return /[a-z]/i.test(event.key)">
+                <hr>
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Cancel</button>
+                  <button action="confirm" value="Ok">Confirm</button>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Settings Modal -->
+            <div id="settings-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Settings</div>
+              <div class="modal-body">
+                <div class="checkboxes">
+                  <label class="checkbox-label" for="enable-lighting">
+                    <input type="checkbox" id="enable-lighting" autocomplete="off"> Enable Lighting
+                  </label>
+                </div>
+                <div class="checkboxes">
+                  <label class="checkbox-label" for="enable-weather">
+                    <input type="checkbox" id="enable-weather"> Enable Weather
+                  </label>
+                </div>
+                <div class="checkboxes">
+                  <label class="checkbox-label" for="enable-sound">
+                    <input type="checkbox" id="enable-sound"> Enable Sound
+                  </label>
+                </div>
+
+                <br>
+                Sound Volume <span id="volume-slider-value" style="float: right;"></span>
+                <br>
+                <div style="display: flex">
+                <input style="flex: 1 1 auto;" id="volume-slider" type="range" min="0" max="100" value="50" class="slider" id="myRange">
+                </div>
+                <br>
+                <button onclick="gameClient.interface.requestFullScreen()">Fullscreen</button>
+                <hr>
+                Fixed Resolution
+                <div class="checkboxes">
+                  <input type="checkbox" id="enable-resolution">
+                  <select id="resolution" style="text-align: center;"></select>
+                </div>
+                <div class="checkboxes">
+                  <label class="checkbox-label" for="anti-aliasing">
+                    <input type="checkbox" id="anti-aliasing"> Anti-Aliasing
+                  </label>
+                </div>
+              </div>
+            </div>
+   
+            <!-- Readable Modal -->
+            <div id="readable-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Title</div>
+              <div class="modal-body">
+                <div style="position: relative;">
+                  <textarea id="book-text-area"></textarea>
+                  <!-- Transparent pane above text-area: disabled elements do not register mouseup events.. -->
+                  <div style="background-color: none; width: 100%; height: 260px; position: absolute; top: 0px;"></div>
+                </div>
+                <hr>
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Close</button>
+                </div>
+				</div>
+            </div>
+
+            <!-- Confirm Modal -->
+            <div id="confirm-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Confirm?</div>
+              <div class="modal-body">
+                <div style="text-align: center;">Are you sure?</div>
+                <hr>
+                <!-- Buttons aligned to the right -->
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Cancel</button>
+                  <button action="confirm" value="Ok">Confirm</button>
+                </div>
+              </div>
+            </div>
+ 
+            <!-- Enter Name Modal -->
+            <div id="spellbook-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Spellbook</div>
+              <div class="modal-body">
+                Click on a spell icon to add it to the hotbar.
+                <div id="spellbook-list"></div>
+                <hr>
+                <!-- Buttons aligned to the right -->
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Close</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Enter Name Modal -->
+            <div id="enter-name-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Enter Name</div>
+              <div class="modal-body">
+                <input id="enter-name" type="text" onkeypress="return /[a-z]/i.test(event.key)">
+                <hr>
+                <!-- Buttons aligned to the right -->
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Cancel</button>
+                  <button action="confirm" value="Ok">Confirm</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Move Item Modal -->
+            <div id="move-item-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Move Item</div>
+              <div class="modal-body">
+                <div class="move-item-wrapper">
+                  <div class="slot">
+                    <canvas id="move-count-sprite" width="32" height="32"></canvas>
+                    <span class="count" id="item-count"></span>
+                  </div>
+                  <div class="move-item-wrapper-inner">
+                    <div class="move-item-wrapper-inner-row">
+                      <input type="range" class="slider" id="item-amount" min="1">
+                    </div>
+                    <div class="move-item-wrapper-inner-row">
+                      <button action="cancel" value="Cancel">Cancel</button>
+                      <button action="confirm" value="Ok">Confirm</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Offer Item Modal -->
+            <div id="offer-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Trade Offers</div>
+              <div class="modal-body">
+                <div class="tab-flex">
+                  <button class="offer-tab selected" id="set-sell">Sell Offers</button>
+                  <button class="offer-tab" id="set-buy">Buy Offers</button>
+                </div>
+                <div class="offers"></div>
+                <div id="offer-info">
+                  <div id="buy-count-wrapper" style="display: none;">
+                    Amount:
+                    <span id="offer-count"></span>
+                    <input type="range" class="slider" id="buy-count" min="1" max="100">
+                  </div>
+                  <div id="offer-name-wrapper">
+                    <span id="offer-name"></span>
+                    <img src="./png/gc.png"></img>
+                    <span id="offer-price"></span>
+                  </div>
+                </div>
+                <hr>
+                <!-- Buttons aligned to the right -->
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Cancel</button>
+                  <button action="confirm" value="Ok">Confirm</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Move Item Modal -->
+            <div id="outfit-modal" class="modal">
+              <button class="close-button-transparent symbol-button" action="cancel" value="Cancel">✕</button>
+              <div class="modal-header">Change Outfit</div>
+              <div class="modal-body">
+                <div class="change-outfit-wrapper">
+                  <div class="outfit-canvas-wrapper">
+                    <div class="button-wrapper">
+                      <button id="rotate-outfit" class="symbol-button">⭮</button>
+                    </div>
+                    <canvas id="outfit-example" width="128" height="128"></canvas>
+                  </div>
+                  
+                  <!-- Wrapper for changing head, body, legs, feet to a different color -->
+                  <div class="outfit-color-picker-wrapper">
+                
+                    <div class="outfit-button-row">
+                      <button id="outfit-head" class="outfit-face-picker">Head</button>
+                      <button id="outfit-body" class="outfit-face-picker">Body</button>
+                      <button id="outfit-legs" class="outfit-face-picker">Legs</button>
+                      <button id="outfit-feet" class="outfit-face-picker">Feet</button>
+                    </div>
+                
+                    <!-- Wrapper for all color selectors -->
+                    <div class="outfit-color-picker">
+                      <div class="outfit-color-picker-row">
+                        <button style="background-color: rgb(255, 255, 255);" index="0"></button><button style="background-color: rgb(255, 212, 191);" index="1"></button><button style="background-color: rgb(255, 233, 191);" index="2"></button><button style="background-color: rgb(255, 255, 191);" index="3"></button><button style="background-color: rgb(233, 255, 191);" index="4"></button><button style="background-color: rgb(212, 255, 191);" index="5"></button><button style="background-color: rgb(191, 255, 191);" index="6"></button><button style="background-color: rgb(191, 255, 212);" index="7"></button><button style="background-color: rgb(191, 255, 233);" index="8"></button><button style="background-color: rgb(191, 255, 255);" index="9"></button><button style="background-color: rgb(191, 233, 255);" index="10"></button><button style="background-color: rgb(191, 212, 255);" index="11"></button><button style="background-color: rgb(191, 191, 255);" index="12"></button><button style="background-color: rgb(212, 191, 255);" index="13"></button><button style="background-color: rgb(233, 191, 255);" index="14"></button><button style="background-color: rgb(255, 191, 255);" index="15"></button><button style="background-color: rgb(255, 191, 233);" index="16"></button><button style="background-color: rgb(255, 191, 212);" index="17"></button><button style="background-color: rgb(255, 191, 191);" index="18"></button>
+	  			    </div>
+                      <div class="outfit-color-picker-row">
+	  			    <button style="background-color: rgb(218, 218, 218);" index="19"></button><button style="background-color: rgb(191, 159, 143);" index="20"></button><button style="background-color: rgb(191, 175, 143);" index="21"></button><button style="background-color: rgb(191, 191, 143);" index="22"></button><button style="background-color: rgb(175, 191, 143);" index="23"></button><button style="background-color: rgb(159, 191, 143);" index="24"></button><button style="background-color: rgb(143, 191, 143);" index="25"></button><button style="background-color: rgb(143, 191, 159);" index="26"></button><button style="background-color: rgb(143, 191, 175);" index="27"></button><button style="background-color: rgb(143, 191, 191);" index="28"></button><button style="background-color: rgb(143, 175, 191);" index="29"></button><button style="background-color: rgb(143, 159, 191);" index="30"></button><button style="background-color: rgb(143, 143, 191);" index="31"></button><button style="background-color: rgb(159, 143, 191);" index="32"></button><button style="background-color: rgb(175, 143, 191);" index="33"></button><button style="background-color: rgb(191, 143, 191);" index="34"></button><button style="background-color: rgb(191, 143, 175);" index="35"></button><button style="background-color: rgb(191, 143, 159);" index="36"></button><button style="background-color: rgb(191, 143, 143);" index="37"></button>
+	  			    </div>
+                      <div class="outfit-color-picker-row">
+	  			    <button style="background-color: rgb(182, 182, 182);" index="38"></button><button style="background-color: rgb(191, 127, 95);" index="39"></button><button style="background-color: rgb(191, 175, 143);" index="40"></button><button style="background-color: rgb(191, 191, 95);" index="41"></button><button style="background-color: rgb(159, 191, 95);" index="42"></button><button style="background-color: rgb(127, 191, 95);" index="43"></button><button style="background-color: rgb(95, 191, 95);" index="44"></button><button style="background-color: rgb(95, 191, 127);" index="45"></button><button style="background-color: rgb(95, 191, 159);" index="46"></button><button style="background-color: rgb(95, 191, 191);" index="47"></button><button style="background-color: rgb(95, 159, 191);" index="48"></button><button style="background-color: rgb(95, 127, 191);" index="49"></button><button style="background-color: rgb(95, 95, 191);" index="50"></button><button style="background-color: rgb(127, 95, 191);" index="51"></button><button style="background-color: rgb(159, 95, 191);" index="52"></button><button style="background-color: rgb(191, 95, 191);" index="53"></button><button style="background-color: rgb(191, 95, 159);" index="54"></button><button style="background-color: rgb(191, 95, 127);" index="55"></button><button style="background-color: rgb(191, 95, 95);" index="56"></button>
+	  			    </div>
+                      <div class="outfit-color-picker-row">
+	  			    <button style="background-color: rgb(145, 145, 145);" index="57"></button><button style="background-color: rgb(191, 106, 63);" index="58"></button><button style="background-color: rgb(191, 148, 63);" index="59"></button><button style="background-color: rgb(191, 191, 63);" index="60"></button><button style="background-color: rgb(148, 191, 63);" index="61"></button><button style="background-color: rgb(106, 191, 63);" index="62"></button><button style="background-color: rgb(63, 191, 63);" index="63"></button><button style="background-color: rgb(63, 191, 106);" index="64"></button><button style="background-color: rgb(63, 191, 148);" index="65"></button><button style="background-color: rgb(63, 191, 191);" index="66"></button><button style="background-color: rgb(63, 148, 191);" index="67"></button><button style="background-color: rgb(63, 106, 191);" index="68"></button><button style="background-color: rgb(63, 63, 191);" index="69"></button><button style="background-color: rgb(106, 63, 191);" index="70"></button><button style="background-color: rgb(148, 63, 191);" index="71"></button><button style="background-color: rgb(191, 63, 191);" index="72"></button><button style="background-color: rgb(191, 63, 148);" index="73"></button><button style="background-color: rgb(191, 63, 106);" index="74"></button><button style="background-color: rgb(191, 63, 63);" index="75"></button>
+	  			    </div>
+                      <div class="outfit-color-picker-row">
+	  			    <button style="background-color: rgb(109, 109, 109);" index="76"></button><button style="background-color: rgb(255, 85, 0);" index="77"></button><button style="background-color: rgb(255, 170, 0);" index="78"></button><button style="background-color: rgb(255, 255, 0);" index="79"></button><button style="background-color: rgb(170, 255, 0);" index="80"></button><button style="background-color: rgb(84, 255, 0);" index="81"></button><button style="background-color: rgb(0, 255, 0);" index="82"></button><button style="background-color: rgb(0, 255, 84);" index="83"></button><button style="background-color: rgb(0, 255, 170);" index="84"></button><button style="background-color: rgb(0, 255, 255);" index="85"></button><button style="background-color: rgb(0, 169, 255);" index="86"></button><button style="background-color: rgb(0, 85, 255);" index="87"></button><button style="background-color: rgb(0, 0, 255);" index="88"></button><button style="background-color: rgb(85, 0, 255);" index="89"></button><button style="background-color: rgb(169, 0, 255);" index="90"></button><button style="background-color: rgb(254, 0, 255);" index="91"></button><button style="background-color: rgb(255, 0, 170);" index="92"></button><button style="background-color: rgb(255, 0, 85);" index="93"></button><button style="background-color: rgb(255, 0, 0);" index="94"></button>
+	  			    </div>
+                      <div class="outfit-color-picker-row">
+	  			    <button style="background-color: rgb(72, 72, 72);" index="95"></button><button style="background-color: rgb(191, 63, 0);" index="96"></button><button style="background-color: rgb(191, 127, 0);" index="97"></button><button style="background-color: rgb(191, 191, 0);" index="98"></button><button style="background-color: rgb(127, 191, 0);" index="99"></button><button style="background-color: rgb(63, 191, 0);" index="100"></button><button style="background-color: rgb(0, 191, 0);" index="101"></button><button style="background-color: rgb(0, 191, 63);" index="102"></button><button style="background-color: rgb(0, 191, 127);" index="103"></button><button style="background-color: rgb(0, 191, 191);" index="104"></button><button style="background-color: rgb(0, 127, 191);" index="105"></button><button style="background-color: rgb(0, 63, 191);" index="106"></button><button style="background-color: rgb(0, 0, 191);" index="107"></button><button style="background-color: rgb(63, 0, 191);" index="108"></button><button style="background-color: rgb(127, 0, 191);" index="109"></button><button style="background-color: rgb(191, 0, 191);" index="110"></button><button style="background-color: rgb(191, 0, 127);" index="111"></button><button style="background-color: rgb(191, 0, 63);" index="112"></button><button style="background-color: rgb(191, 0, 0);" index="113"></button>
+	  			    </div>
+                      <div class="outfit-color-picker-row">
+	  			    <button style="background-color: rgb(36, 36, 36);" index="114"></button><button style="background-color: rgb(127, 42, 0);" index="115"></button><button style="background-color: rgb(127, 85, 0);" index="116"></button><button style="background-color: rgb(127, 127, 0);" index="117"></button><button style="background-color: rgb(85, 127, 0);" index="118"></button><button style="background-color: rgb(42, 127, 0);" index="119"></button><button style="background-color: rgb(0, 127, 0);" index="120"></button><button style="background-color: rgb(0, 127, 42);" index="121"></button><button style="background-color: rgb(0, 127, 85);" index="122"></button><button style="background-color: rgb(0, 127, 127);" index="123"></button><button style="background-color: rgb(0, 84, 127);" index="124"></button><button style="background-color: rgb(0, 42, 127);" index="125"></button><button style="background-color: rgb(0, 0, 127);" index="126"></button><button style="background-color: rgb(42, 0, 127);" index="127"></button><button style="background-color: rgb(84, 0, 127);" index="128"></button><button style="background-color: rgb(127, 0, 127);" index="129"></button><button style="background-color: rgb(127, 0, 85);" index="130"></button><button style="background-color: rgb(127, 0, 42);" index="131"></button><button style="background-color: rgb(127, 0, 0);" index="132"></button>
+	  			    </div>
+                    </div>
+                
+                  </div>
+                </div>
+    
+                <!-- Wrapper for selecting a different outfit & mount -->
+                <div class="change-outfit">
+                  <div class="change-outfit-inner">
+                    <button id="left-outfit" class="symbol-button">&#129092;</button>
+                    <span id="outfit-span">Outfit</span>
+                    <button id="right-outfit" class="symbol-button">&#129094;</button>
+                  </div>
+                  <div class="change-outfit-inner">
+                    <button id="left-mount" class="symbol-button">&#129092;</button>
+                    <span id="mount-span">Mount</span>
+                    <button id="right-mount" class="symbol-button">&#129094;</button>
+                  </div>
+                </div>
+                
+                <!-- Wrapper for toggling outfit options (addons, mount) -->
+                <div class="checkboxes">
+                  <label class="checkbox-label" for="checkbox-outfit-addon-one"><input type="checkbox" id="checkbox-outfit-addon-one"><span>Addon One</span></label>
+                  <label class="checkbox-label" for="checkbox-outfit-addon-two"><input type="checkbox" id="checkbox-outfit-addon-two"><span>Addon Two</span></label>
+                  <label class="checkbox-label" for="checkbox-outfit-mounted"><input type="checkbox" id="checkbox-outfit-mounted"><span>Mounted</span></label>
+                  <label class="checkbox-label" for="checkbox-animate-outfit"><input type="checkbox" id="checkbox-animate-outfit"><span>Animated</span></label>
+                </div>
+                
+                <hr>
+            
+                <!-- Buttons aligned to the right -->
+                <div class="modal-footer">
+                  <button action="cancel" value="Cancel">Cancel</button>
+                  <button action="confirm" value="Ok">Confirm</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+    
+          <!-- The Actual Gamescreen -->
+          <canvas id="screen" width="480" height="352"></canvas>
+
+          <!-- Wrapper for elements on top of the gamescreen -->
+          <div id="text-wrapper" class="no-select">
+            <span id="server-message"></span>
+            <span id="zone-message"></span>
+          </div>
+
+          <!-- Statistics -->
+          <div id="debug-statistics"></div>
+
+          <!-- Notifications etc.. -->
+          <div id="notification" class="canvas-notification"></div>
+
+          <div id="achievement" class="canvas-notification hidden"></div>
+    
+          </div>
+        </div>
+
+        <div class="middle">
+          <div class="hotbar">
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F1</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F2</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F3</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F4</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F5</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F6</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F7</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F8</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F9</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F10</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F11</span></div>
+            <div class="hotbar-item"><canvas></canvas><span class="hotbar-text"></span><span class="hotbar-key">F12</span></div>
+          </div>
+        </div>
+
+        <!-- Container for the chatbox -->
+        <div class="lower">
+    
+          <div class="chatbox-wrapper">
+          
+            <!-- Header for all channels -->
+            <div class="wrapper-header">
+              <button id="left-channel" class="symbol-button-long">&#129092;</button>
+              <div id="cheader" class="chat-header"></div>
+              <button id="right-channel" class="symbol-button-long">&#129094;</button>
+              <button id="open-chat-modal" title="Open a new chat window" class="symbol-button-long">&#128172;</button>
+            </div>   
+    
+            <!-- Chatbox area itself -->
+            <div id="chat-text">
+              <div id="chat-text-area" class="chat-body"></div>
+            </div>
+    
+            <!-- Footer for sending chat messages etc.. -->
+            <div class="chat-footer">
+              <button id="chat-say-loudness" class="symbol-button-long">))</button>
+              <input id="chat-input" type="text" placeholder="Press Enter to unlock.">
+              <button id="send-chat-message" class="symbol-button-text">Send</button>
+            </div>
+          </div>
+    
+        </div>
+
+      </div>
+    
+      <!-- Right column -->
+      <div class="oogwrap">
+    
+        <div class="oogwrap2">
+
+          <!-- The minimap -->
+          <div class="minimap-container">
+            <div class="minimap-wrapper">
+          
+              <canvas id="minimap" width="160" height="160"></canvas>
+          
+              <div class="crosshair">✕</div>
+              <span id="clock-time">00:00</span>
+              <div class="button-stack">
+                <button class="symbol-button" id="minimap-current-layer">0</button>
+                <button class="symbol-button" id="minimap-zoom-up">+</button>
+                <button class="symbol-button" id="minimap-zoom-down">−</button>
+                <button class="symbol-button" id="minimap-zoom-el">A</button>
+                <button class="symbol-button" id="minimap-zoom-dl">D</button>
+          
+              </div>
+          
+            </div>
+          </div>
+          
+          <!-- Character Status (health & mana) --> 
+          <div class="character-status">
+          
+            <div id="health-bar" class="bar">
+              <div class="character-health"></div>
+              <span class="percentage">100%</span>
+            </div>
+          
+            <div id="mana-bar" class="bar">
+              <div class="character-mana"></div>
+              <span class="percentage">100%</span>
+            </div>
+          
+          </div>
+          
+          <!-- Character Equipment --> 
+          <div class="equipment-options-wrapper">
+            
+            <div class="first-wrapper">
+          
+              <div class="equipment wrapper" containerIndex="0">
+              
+          
+                <div class="equipment-column">
+          
+                  <div id="shoulder-slot" class="slot" slotIndex="7">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                  
+                  <div id="left-slot" class="slot" slotIndex="5">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                  
+                  <div id="ring-slot" class="slot" slotIndex="8">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+          
+                  <div id="player-capacity" class="equipment-padding">Cap <br> 100</div>
+          
+                </div>
+              
+                <div class="equipment-column">
+                  <div id="head-slot" class="slot" slotIndex="0">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                  
+                  <div id="armor-slot" class="slot" slotIndex="1">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                  
+                  <div id="legs-slot" class="slot" slotIndex="2">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                  
+                  <div id="boots-slot" class="slot" slotIndex="3">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                </div>
+              
+                <div class="equipment-column">
+                  <div id="backpack-slot" class="slot" slotIndex="6">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                  
+                  <div id="right-slot" class="slot" slotIndex="4">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+                  
+                  <div id="quiver-slot" class="slot" slotIndex="9">
+                    <canvas width="32" height="32"></canvas>
+                    <span class="count">
+                  </div>
+          
+                  <div class="equipment-padding"><button style="height: 100%;" id="keyring">Keys</button></div>
+          
+                </div>
+          
+              </div>
+          
+            <div id="status-bar" class="status-bar"></div>
+            
+            </div>
+            
+            <div class="equipment-buttons">
+              <button id="openSkills">Stats</button>
+              <button id="openBattle">Battle</button>
+              <button id="openOutfit">Outfit</button>
+              <button id="openFriends">Friends</button>
+              <button id="openSettings">Settings</button>
+              <button id="logout-button">Logout</button>
+            </div>
+          
+          </div>
+        </div>
+        <div class="column"></div>
+
+      </div>
+
+    </div>
+
+  <!-- Protocol to speak to the NodeJS Server -->
+  <script src="src/opcodes.js"></script>
+  <script src="src/position.js"></script>
+  <script src="src/pathfinder.js"></script>
+  <script src="src/hotbar-manager.js"></script>
+
+  <script src="src/condition.js"></script>
+  <script src="src/spellbook.js"></script>
+  <script src="src/casting-manager.js"></script>
+  <script src="src/proto.js"></script>
+  <script src="src/rgba.js"></script>
+  <script src="src/settings.js"></script>
+  <script src="src/state.js"></script>
+  <script src="src/game-loop.js"></script>
+  <script src="src/status-bar.js"></script>
+
+  <script src="src/database.js"></script>
+  <script src="src/interface.js"></script>
+  <script src="src/packet-handler.js"></script>
+  <script src="src/enum.js"></script>
+
+  <script src="src/soundbit.js"></script>
+  <script src="src/soundtrace.js"></script>
+  <script src="src/sound-manager.js"></script>
+  <script src="src/canvas.js"></script>
+  <script src="src/outline-canvas.js"></script>
+  <script src="src/light-canvas.js"></script>
+  <script src="src/weather-canvas.js"></script>
+
+  <script src="src/sprite-buffer.js"></script>
+  <script src="src/object-buffer.js"></script>
+  <script src="src/eventemitter.js"></script>
+  
+  <script src="src/gameclient.js"></script>
+  <script src="src/minimap.js"></script>
+  <script src="src/outfit.js"></script>
+  <script src="src/thing.js"></script>
+  <script src="src/dataobject.js"></script>
+  
+  <script src="src/bitflag.js"></script>
+  <script src="src/frame-group.js"></script>
+  
+  <script src="src/clock.js"></script>
+  <script src="src/menu.js"></script>
+  <script src="src/menu-hotbar.js"></script>
+  <script src="src/menu-message.js"></script>
+  <script src="src/menu-screen.js"></script>
+  <script src="src/menu-friend-list.js"></script>
+  <script src="src/menu-friend-window.js"></script>
+  <script src="src/menu-chat-header.js"></script>
+  <script src="src/menu-chat-body.js"></script>
+  <script src="src/menu-manager.js"></script>
+  
+  <script src="src/renderer.js"></script>
+  <script src="src/network-manager.js"></script>
+
+  <script src="src/channel-manager.js"></script>
+  <script src="src/modal-manager.js"></script>
+  <script src="src/window-manager.js"></script>
+  <script src="src/window.js"></script>
+  <script src="src/window-friend.js"></script>
+  <script src="src/window-skill.js"></script>
+  <script src="src/window-battle.js"></script>
+  
+  <script src="src/debugger.js"></script>
+
+  <!-- Classes for DOM elements on the game screen -->
+  <script src="src/screen-element-manager.js"></script>
+  <script src="src/screen-element.js"></script>
+  <script src="src/screen-element-character.js"></script>
+  <script src="src/screen-element-message.js"></script>
+  <script src="src/screen-element-floating.js"></script>
+
+  <script src="src/animation.js"></script>
+  <script src="src/distance-animation.js"></script>
+  <script src="src/box-animation.js"></script>
+  <script src="src/item.js"></script>
+  <script src="src/fluid-container.js"></script>
+  <script src="src/book.js"></script>
+  <script src="src/sprite.js"></script>
+
+  <script src="src/channel.js"></script>
+  <script src="src/private-channel.js"></script>
+  <script src="src/local-channel.js"></script>
+ 
+  <script src="src/friendlist.js"></script>
+  
+  <script src="src/message.js"></script>
+  <script src="src/message-character.js"></script>
+  <script src="src/keyboard.js"></script>
+  <script src="src/mouse.js"></script>
+  <script src="src/slot.js"></script>
+  <script src="src/container.js"></script>
+  
+  <script src="src/equipment.js"></script>
+  <script src="src/notification.js"></script>
+  
+  <script src="src/replay-manager.js"></script>
+  <script src="src/packet.js"></script>
+  <script src="src/packetwriter.js"></script>
+  <script src="src/packetreader.js"></script>
+  <script src="src/world.js"></script>
+  <script src="src/creature.js"></script>
+  <script src="src/monster.js"></script>
+  <script src="src/player.js"></script>
+  <script src="src/chunk.js"></script>
+  <script src="src/tile.js"></script>
+
+  <script src="src/modal.js"></script>
+  <script src="src/modal-create-account.js"></script>
+  <script src="src/modal-spellbook.js"></script>
+  <script src="src/modal-confirm.js"></script>
+  <script src="src/modal-enter-name.js"></script>
+  <script src="src/modal-map.js"></script>
+  <script src="src/modal-text.js"></script>
+  <script src="src/modal-move-item.js"></script>
+  <script src="src/modal-outfit.js"></script>
+  <script src="src/modal-chat.js"></script>
+  <script src="src/modal-readable.js"></script>
+  <script src="src/modal-offer.js"></script>
+  
+  <script src="src/event-queue.js"></script>
+  <script src="src/heap-event.js"></script>
+  <script src="src/binary-heap.js"></script>
+  
+  <script src="src/index.js"></script>
+
+  <!-- Custom SVG filter for post-processing -->
+  <!-- This example filters all colors and truncates green to 0 or 1 -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="0" width="0" style="display: block;">
+    <filter id="matrix">
+      <feComponentTransfer color-interpolation-filters="sRGB">
+        <feFuncR type="discrete" tableValues="0"/>
+        <feFuncG type="discrete" tableValues="0 1"/>
+        <feFuncB type="discrete" tableValues="0"/>
+      </feComponentTransfer>
+    </filter>
+  </svg>
+
+  </body>
+
+</html>

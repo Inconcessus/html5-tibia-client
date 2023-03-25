@@ -1,0 +1,349 @@
+html {
+  height: 100%;
+}
+
+.oogwrap {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  height: 100%;
+  margin: 0px;
+  font-family: Verdana, "Sans-Serif";
+  font-weight: bold;
+  text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
+  font-size: 12px;
+  color: white;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(24, 24, 24, 1) rgba(51, 51, 51, 1);
+  background-image: url("../png/bg2.png");
+}
+
+#battle-window-target {
+  display: none;
+  align-items: center;
+}
+
+.battle-window-bar-wrapper span {
+  flex: 1 1 auto;
+  font-size: 10px;
+}
+
+.battle-window-target-stats-bar {
+  flex: 1 1 auto;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2px;
+}
+
+.health {
+  background: rgb(0, 255, 0);
+  border: 1px solid black;
+}
+
+.battle-window-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.mana {
+  background: rgb(0, 0, 255);
+  border: 1px solid black;
+}
+
+.battle-window-target-wrapper:hover {
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.battle-window-target-wrapper {
+  display: flex;
+  width: 100%;
+  background-image: url("../png/bg2.png");
+  margin: 1px;
+  border: 1px solid black;
+}
+
+.battle-window-target-title {
+  color: rgba(0, 255, 0);
+}
+
+.battle-window-target-canvas {
+  flex: 0 1;
+}
+
+.battle-window-target-canvas > canvas {
+  width: 64px;
+  height: 64px;
+}
+
+.battle-window-target-stats {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding-left: 4px;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.zone-sub {
+  font-size: 24px;
+  color: white;
+  font-family: Goudy Old Style;
+}
+
+.zone-title {
+  font-variant: small-caps;
+  font-family: Arno Pro;
+  letter-spacing: 5px;
+}
+
+#zone-message hr {
+  color: gold;
+  padding: 0px;
+  margin: 0px;
+  background: gold;
+}
+
+#zone-message {
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  font-size: 36px;
+  color: gold;
+  top: 20%;
+  text-align: center;
+  position: absolute;
+  z-index: 10000000;
+  padding: 4px;
+}
+
+#server-message {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 4px;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  max-width: 256px;
+  top: 50%;
+  text-align: center;
+  position: absolute;
+  padding: 4px;
+}
+
+.checkboxes {
+  display: flex;
+  justify-content: center;
+}
+
+.checkboxes label {
+  display: inline-block;
+  padding-right: 10px;
+  white-space: nowrap;
+  flex: 1 1 auto;
+}
+
+.checkboxes input {
+  vertical-align: middle;
+}
+
+.checkboxes label span {
+  vertical-align: middle;
+}
+
+.close-button-transparent:hover {
+  font-weight: bold;
+  color: grey;
+  border: none;
+  box-shadow: none;
+}
+
+.close-button-transparent {
+  position: absolute;
+  right: 6px;
+  border: 0px;
+  background: none;
+}
+
+/* Styling for input */
+input {
+  background-image: url("../png/bg3.png");
+  height: 14px;
+  outline: none;
+  padding: 4px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-weight: bold;
+  border: 0px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), grey, rgba(0, 0, 0, 0));
+    margin: 8px;
+}
+
+/* Styling for buttons */
+button {
+  font-size: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  background-image: url("../png/bg3.png");
+  border: 1px solid black;
+  margin: 2px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+button:hover {
+  border: 1px solid white;
+  background-image: url("../png/bg2.png");
+}
+
+button:disabled {
+  color: grey;
+}
+
+button:disabled:hover {
+  border: 1px solid grey;
+  box-shadow: 0 0 4px 1px grey;
+}
+
+/* Styling for custom buttons */
+button.symbol-button.small {
+  font-size: 8px;
+}
+
+button.symbol-button {
+  padding: 0px;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  max-width: 18px;
+}
+
+.symbol-button-long {
+  padding: 0px;
+  min-width: 24px;
+}
+
+.close-button {
+  position: absolute;
+  right: 6px;
+}
+
+#game-wrapper {
+  display: none;
+  height: 100%;
+  min-width: 992px;
+  min-height: 508px;
+}
+
+#game-wrapper .column {
+  display: flex;
+  width: 180px;
+  min-width: 180px;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-image: url("../png/bg2.png");
+  max-height: 100%;
+  flex: 1 1 auto;
+}
+
+#game-wrapper .main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#clock-time {
+  font-size: 10px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.main .middle {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: url("../png/bg.png");
+}
+
+.main .upper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  background-image: url("../png/bg.png");
+}
+
+.main .lower {
+  height: 100%;
+  background-image: url("../png/bg2.png"); 
+  overflow-x: auto;
+  max-height: 140px;
+  flex: 1 1 auto;
+}
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.canvas-notification {
+  text-align: center;
+  color: white;
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
+  z-index: 8000;
+}
+
+.stack-wrapper {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+.stack-top {
+  flex: 0 0 auto;
+  height: 256px;
+  overflow: auto;
+}
+
+#debug-statistics {
+  z-index: 1000;
+  margin: 8px;
+  position: absolute;
+  font-size: 10px;
+  left: 0px;
+  top: 0px;
+}

@@ -1,0 +1,32 @@
+.minimap-container {
+  display: flex;
+  margin: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.minimap-wrapper {
+  height: 160px;
+  display: block;
+  position: relative;
+}
+
+.minimap-wrapper canvas {
+  background-color: black;
+}
+
+.minimap-wrapper .crosshair {
+  position: absolute;
+  left: 76px;
+  top: 72px;
+  color: white;
+}
+
+.minimap-wrapper .button-stack {
+  position: absolute;
+  width: 18px;
+  height: 160px;
+  padding: 4px;
+  top: 0px;
+  right: 4px;
+}

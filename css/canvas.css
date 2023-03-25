@@ -1,0 +1,16 @@
+#screen {
+
+  z-index: 100;
+  background-color: black;
+  box-shadow: 0px 0px 10px 0px black;
+
+}
+
+.canvas-wrapper {
+  min-width: 480px;
+  min-height: 352px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,190 @@
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  z-index: 30000;
+  border: 1px solid black;
+  box-shadow: 0px 0px 10px 0px black;
+  background-image: url("../png/bg.png");
+}
+
+.modal-header {
+  background-image: url("../png/bg2.png");
+  cursor: grab;
+  text-align: center;
+  padding: 4px;
+}
+
+.modal .modal-footer {
+  text-align: right;
+}
+
+.modal-body {
+  box-shadow: inset 0 0 6px black;
+  padding: 12px;
+}
+
+.tab-flex {
+  display: flex;
+}
+
+.offer-tab {
+  flex: 1 1 auto;
+  padding: 4px;
+  background-image: url("../png/bg2.png");
+}
+
+.offers {
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../png/bg3.png");
+}
+
+.offers canvas {
+  margin: 2px;
+}
+
+.offer-tab.selected {
+  border-bottom: 0px;
+  background-image: url("../png/bg3.png");
+}
+
+.modal input {
+  color: white;
+  border: 1px solid black;
+}
+
+#offer-modal {
+  width: 350px;
+}
+
+#offer-price {
+  width: 32px;
+  display: inline-block;
+}
+
+#offer-name-wrapper {
+  flex: 1 0 auto;
+  text-align: right;
+}
+
+#buy-count-wrapper {
+  display: flex;
+}
+
+#buy-count {
+  width: 100px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+#offer-count {
+  width: 32px;
+  text-align: right;
+}
+
+#offer-info {
+  height: 16px;
+  display: flex;
+  border: 1px solid black;
+  padding: 4px;
+  background-image: url("../png/bg2.png");
+}
+
+#book-text-area {
+  height: 220px;
+  resize: none;
+  scrollbar-width: thin;
+  background-image: url("../png/bg2.png");
+  color: white;
+  font-weight: bold;
+  padding: 16px;
+  padding-right: 8px;
+  font-size: 12px;
+  font-family: Verdana;
+  box-shadow: inset 0 0 8px black;
+  border: 1px solid black;
+  border-radius: 16px 0px 0px 16px;
+}
+
+#book-text-area:disabled {
+  color: grey;
+}
+
+#book-text-area:focus {
+  outline: none;
+}
+
+.map-modal-wrapper {
+  position: relative;
+}
+
+.map-modal-wrapper span {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+}
+
+.map-modal-wrapper .vline {
+  pointer-events: none;
+  border-bottom: 1px solid white;
+  width: 256px;
+  top: 128px;
+  position: absolute;
+}
+
+.map-modal-wrapper .hline {
+  pointer-events: none;
+  border-right: 1px solid white;
+  left: 128px;
+  position: absolute;
+  height: 256px;
+}
+
+#spellbook-list {
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-image: url("../png/bg.png");
+  width: 400px;
+}
+.spellbook-wrapper {
+  width: 45%;
+  border: 1px solid black;
+  flex: 1 1 auto;
+  display: flex;
+  margin: 4px;
+  align-items: center;
+  background-image: url("../png/bg2.png");
+}
+
+.spellbook-wrapper canvas {
+  flex: 0 1 auto;
+  width: 32px;
+  height: 32px;
+  box-shadow: 0px 0px 4px 0px black;
+  cursor: pointer;
+}
+
+.spellbook-wrapper span {
+  flex: 0 1 auto;
+  text-align: center;
+  width: 100%;
+}
+
+#spellbook-wrapper-prototype {
+  display: none;
+}

@@ -1,0 +1,87 @@
+.change-outfit {
+  display: flex;
+}
+
+.change-outfit-inner {
+  display: flex;
+  flex: 1 1 auto;
+  flex-basis: 100%;
+  margin: 2px;
+}
+
+.change-outfit-inner span {
+  display: flex;
+  flex: 1 1 auto;
+  background-image: url("../png/bg2.png");
+  align-items: center;
+  justify-content: center;
+}
+
+.change-outfit-inner button {
+  flex: 0 0 auto;
+}
+
+.outfit-face-picker.on {
+  background-image: url("../png/bg2.png");
+}
+
+.outfit-color-picker {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.outfit-color-picker-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.outfit-color-picker-row > button {
+  display: flex;
+  flex: 0 1 auto;
+  background-image: none;
+  margin: 1px;
+  height: 12px;
+  width: 12px;
+}
+
+#outfit-modal .outfit-canvas-wrapper {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+#outfit-modal .button-wrapper {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+}
+
+#outfit-modal .modal-body > .change-outfit-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  height: 128px;
+}
+
+.outfit-color-picker-wrapper {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.outfit-color-picker-wrapper .outfit-button-row {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: space-between;
+}
+
+.outfit-color-picker-wrapper .outfit-button-row button {
+  flex: 1 1 auto;
+  margin: 2px;
+}

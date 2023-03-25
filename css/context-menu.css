@@ -1,0 +1,21 @@
+.contextmenu {
+  position: absolute;
+  width: 80px;
+  padding: 2px;
+}
+
+.contextmenu > .menu-header {
+  background-image: url("../png/bg2.png");
+  cursor: auto;
+  text-align: center;
+  padding: 2px;
+}
+
+.contextmenu button {
+  width: 100%;
+  padding: 2px;
+  border: 0px;
+  border-radius: 0px;
+  margin: 0px;
+}
+

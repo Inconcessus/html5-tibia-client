@@ -1,0 +1,49 @@
+#text-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+/* Prototypes are always hidden */
+.prototype {
+  display: none;
+}
+
+.text-bubble {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 4px;
+  text-align: center;
+  word-break: break-word;
+  max-width: 256px;
+}
+
+.text-window {
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  font-size: 10px;
+  text-align: center;
+}
+
+.character-element-bar {
+  margin: 0px auto;
+  width: 32px;
+  background-color: black;
+  border: 1px solid black;
+}
+
+.value-health {
+  background-color: green;
+  height: 2px;
+  width: 100%;
+} 
+
+.value-mana {
+  background-color: blue;
+  height: 2px;
+  width: 100%;
+}

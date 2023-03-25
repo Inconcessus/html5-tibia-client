@@ -1,0 +1,49 @@
+#login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-width: 640px;
+  min-height: 480px;
+}
+
+#login-wrapper #login-inner {
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  min-width: 640px;
+  min-height: 480px;
+  display: flex;
+}
+
+.password-input {
+  text-align: center;
+}
+
+#login-wrapper #login-inner img {
+  height: 100%;
+}
+
+#login-wrapper #login-inner .login-settings button {
+  margin: 4px;
+  width: 108px;
+  height: 32px;
+}
+
+#login-wrapper #login-inner .login-settings {
+  border: 1px solid black;
+  position: absolute;
+  left: 32px;
+  bottom: 32px;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.45);
+  width: 116px;
+}
+
+#login-wrapper #login-inner .login-version {
+  position: absolute;
+  width: auto;
+  top: 4px;
+  left: 10px;
+  color: white;
+}

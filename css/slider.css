@@ -1,0 +1,61 @@
+select {
+  background-image: url("../png/bg2.png");
+  border: 1px solid black;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  color: white;
+  caret-color: transparent;
+  scrollbar-width: thin;
+}
+
+select option {
+  background-image: url("../png/bg3.png");
+  font-weight: bold;
+  color: white;
+}
+
+select option:hover {
+  color: grey;
+}
+
+select option:nth-child(even) {
+  background-image: url("../png/bg2.png");
+}
+
+.channel-select {
+  width: 100%;
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 12px;
+  background-image: url("../png/bg2.png");
+  cursor: pointer; 
+  border: 1px solid black;
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 12px;
+  background-image: url("../png/bg2.png");
+  cursor: pointer;
+  border: 1px solid grey;
+  border-radius: 0px;
+}
+
+.slider::-moz-range-thumb:hover {
+  border: 1px solid white;
+}
+
+.slider {
+  background-image: url("../png/bg3.png");
+  padding: 0px;
+  appearance: none;
+  height: 12px;
+  outline: none;
+  caret-color: transparent;
+}

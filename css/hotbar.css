@@ -1,0 +1,61 @@
+.hotbar {
+  height: 48px;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotbar-item:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 0px white;
+}
+
+.active {
+  animation: fade 0.25s ease-in-out;
+}
+
+@keyframes fade {
+  0% {   box-shadow: 0px 0px 0px 0px white; }
+  50% {   box-shadow: 0px 0px 10px 0px white; }
+  100% {   box-shadow: 0px 0px 0px 0px white; }
+}
+
+.hotbar-item {
+  color: grey;
+  display: flex;
+  height: 32px;
+  width: 32px;
+  user-select: none;
+  align-items: flex-end;
+  justify-content: center;
+  border: 1px solid black;
+  background-image: url("../png/bg2.png");
+  margin: 2px;
+  position: relative;
+  box-shadow: 0px 0px 10px 0px black;
+}
+
+.hotbar-item .hotbar-text {
+  flex: 1 1 auto;
+  z-index: 10;
+  font-size: 8px;
+  color: white;
+  text-align: center;
+}
+
+.hotbar-item .hotbar-key {
+  font-size: 8px;
+  pointer-events: none;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+}
+
+.hotbar-item canvas {
+  position: absolute;
+  pointer-events: none;
+  width: 32px;
+  height: 32px;
+}
+

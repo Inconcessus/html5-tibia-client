@@ -1,0 +1,133 @@
+.equipment-options-wrapper {
+  display: flex;
+  margin: 8px;
+}
+
+.equipment-buttons {
+  flex: 1 1 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 4px;
+}
+
+.equipment-buttons button {
+  width: 100%;
+  margin: 2px;
+  height: 20px;
+}
+
+.character-status {
+  margin: 8px;
+}
+
+.bar {	
+  border: 1px solid black;
+  margin: 2px;
+  border-radius: 8px;
+  height: 12px;
+  text-align: center;
+  cursor: pointer;
+  background-image: url("../png/bg3.png");
+  position: relative;
+}
+
+.bar:hover {
+  border: 1px solid white;
+}
+
+.bar .icon {
+  position: absolute;
+  left: 0;
+  font-size: 10px;
+}
+
+.bar .percentage {
+  position: absolute;
+  font-size: 10px;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.character-health {
+  background-color: #FF7F7F;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  position: absolute;
+}
+
+.character-mana {
+  background-color: lightblue;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  position: absolute;
+}
+
+.equipment.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.equipment-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.status-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 18px;
+  margin-top: 4px;
+  background-image: url("../png/bg3.png");
+  border: 1px solid black;
+}
+
+.status-bar img {
+  flex: 0 0 auto;
+}
+
+#head-slot {
+  background-image: url("../png/head.png");
+}
+
+#armor-slot {
+  background-image: url("../png/armor.png");
+}
+
+#legs-slot {
+  background-image: url("../png/legs.png");
+}
+
+#backpack-slot {
+  background-image: url("../png/backpack.png");
+}
+
+#boots-slot {
+  background-image: url("../png/boots.png");
+}
+
+#left-slot {
+  background-image: url("../png/left.png");
+}
+
+#right-slot {
+  background-image: url("../png/right.png");
+}
+
+#quiver-slot {
+  background-image: url("../png/quiver.png");
+}
+
+.equipment-padding {
+  text-align: center;
+  font-size: 10px;
+  min-height: 24px;
+}

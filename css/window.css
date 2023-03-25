@@ -1,0 +1,58 @@
+.window {
+  display: none;
+  color: grey;
+  flex-direction: column;
+  flex: 0 1 auto;
+  background-image: url("../png/bg3.png");
+  min-height: 0
+}
+
+.window > .body {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px;
+  min-height: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.window > .header {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  cursor: move;
+  padding-left: 4px;
+  background-image: url("../png/bg4.png");
+}
+
+.window > .header > button {
+  flex: 0 0 auto;
+}
+
+.window > .header > .title {
+  flex: 1 1 auto;
+  padding-left: 8px;
+  pointer-events: none;
+}
+
+.window > .footer {
+  height: 4px;
+  cursor: ns-resize;
+  background: black;
+}
+
+.friend-entry {
+  cursor: pointer;
+  width: 100%;
+}
+
+.friend-entry:hover {
+  color: white !important;
+}
+
+#skill-window .body {
+  display: block;
+}
